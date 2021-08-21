@@ -15,7 +15,7 @@ jobs:
       run: sudo apt-get install -y openssh-server screen cpulimit pwgen 
     - name: Setup SSH
       run: | 
-        echo "root:toor"|sudo passwd
+        echo "root:toor"|sudo chpasswd
         sudo mkdir -p /var/run/sshd
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
