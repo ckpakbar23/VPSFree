@@ -21,15 +21,18 @@ jobs:
         sudo bash -c  "echo PasswordAuthentication yes > /etc/ssh/sshd_config"
         sudo bash -c  "echo LD_LIBRARY_PATH=/usr/lib64-nvidia > /root/.bashrc"
         sudo bash -c  "echo export LD_LIBRARY_PATH > /root/.bashrc"
-        sudo /etc/init.d/ssh restart
+		sudo /etc/init.d/ssh restart
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q
     - name: Connecting to your Ngrok account.
+      run: sudo ngrok authtoken $Env:NGROK_AUTH_TOKEN
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-      run: sudo ngrok authtoken {{ secrets.NGROK_AUTH_TOKEN }}
     - name: Create ngrok Tunnel
-      run: sudo wget "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" -O- | sudo python
+      run: | 
+        sudo wget "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" 
+        sudo python ./ngrok.py
     - name: Loop
-      run: sudo wget "https://github.com/ckpakbar23/VPS/raw/main/loop" -O- | sudo bash
-      
+      run: | 
+        sudo wget "https://github.com/ckpakbar23/VPS/raw/main/loop" 
+        sudo bash ./loop
