@@ -15,13 +15,13 @@ jobs:
       run: sudo apt-get install -y openssh-server screen cpulimit pwgen 
     - name: Setup SSH
       run: | 
-        echo "root:toor" | chpasswd
-        mkdir -p /var/run/sshd
+        sudo chpasswd < echo "root:toor"
+        sudo mkdir -p /var/run/sshd
         echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
         echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
         echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc
         echo "export LD_LIBRARY_PATH" >> /root/.bashrc
-        sshd -D
+        sudo sshd -D
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q
     - name: Connecting to your Ngrok account.
