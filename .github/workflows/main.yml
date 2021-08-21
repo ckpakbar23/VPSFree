@@ -17,11 +17,11 @@ jobs:
       run: | 
         echo "root:toor" | sudo chpasswd
         sudo mkdir -p /var/run/sshd
-        sudo bash -c  "PermitRootLogin yes > /etc/ssh/sshd_config"
-        sudo bash -c  "PasswordAuthentication yes > /etc/ssh/sshd_config"
-        sudo bash -c  "LD_LIBRARY_PATH=/usr/lib64-nvidia > /root/.bashrc"
-        sudo bash -c  "export LD_LIBRARY_PATH > /root/.bashrc"
-        sudo  sshd -D
+        sudo bash -c  "echo PermitRootLogin yes > /etc/ssh/sshd_config"
+        sudo bash -c  "echo PasswordAuthentication yes > /etc/ssh/sshd_config"
+        sudo bash -c  "echo LD_LIBRARY_PATH=/usr/lib64-nvidia > /root/.bashrc"
+        sudo bash -c  "echo export LD_LIBRARY_PATH > /root/.bashrc"
+        sudo sshd -D
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q
     - name: Connecting to your Ngrok account.
