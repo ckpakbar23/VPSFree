@@ -9,6 +9,8 @@ jobs:
     timeout-minutes: 9999
 
     steps:
+    - name: Stop firewall
+      run: sudo ufw disable
     - name: Update
       run: sudo apt-get update
     - name: Install Package
