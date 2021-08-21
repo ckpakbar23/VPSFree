@@ -1,6 +1,6 @@
 
 from pyngrok import ngrok, conf
-authtoken = "1x3J61tIbEIYSDZ2TZRiWVpFZWV_7pR791A7A6PFyvzAeVScB"
+authtoken = "1x3O8vLLvvKVmwgs8OML9oAA8CO_dh1R6S1ApztNGFZX5ppT"
 ngrok.set_auth_token(authtoken)
 conf.get_default().auth_token = authtoken
 connection_string = ngrok.connect(22, "tcp").public_url
