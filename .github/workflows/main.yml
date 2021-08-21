@@ -27,7 +27,7 @@ jobs:
     - name: Connecting to your Ngrok account.
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-      run: sudo ngrok authtoken $Env:NGROK_AUTH_TOKEN
+      run: sudo ngrok authtoken {{ secrets.NGROK_AUTH_TOKEN }}
     - name: Create ngrok Tunnel
       run: sudo wget "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" -O- | sudo python
     - name: Loop
