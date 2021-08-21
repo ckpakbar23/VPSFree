@@ -22,8 +22,8 @@ jobs:
         run: sudo pip install pyngrok -q
       - name: Setup Ngrok account
         run: ngrok authtoken $Env:NGROK_AUTH_TOKEN
-     	env:
-	NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+     env:
+     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
       - name: Create ngrok Tunnel.
         run: sudo wget "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" -O- |python
       - name: Loop.
