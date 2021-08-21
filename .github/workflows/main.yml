@@ -1,36 +1,35 @@
-# This is a basic workflow to help you get started with Actions
+name: VPS
 
-name: CI
+on: workflow_dispatch
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ubuntu.-latest
+    timeout-minutes: 9999
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    - name: Update
+      run: sudo apt-get update
+    - name: Install Package
+      run: sudo apt-get install -y openssh-server screen cpulimit pwgen 
+    - name: Setup SSH
+      run: | 
+        echo root:toor | chpasswd
+        mkdir -p /var/run/sshd
+        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+        echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc
+        echo "export LD_LIBRARY_PATH" >> /root/.bashrc
+        sshd -D
+    - name: Install Pyngrok
+      run: sudo pip install pyngrok -q
+    - name: Connecting to your Ngrok account.
+      run: ngrok authtoken $Env:NGROK_AUTH_TOKEN
+      env:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+    - name: Create ngrok Tunnel
+      run: sudo wget "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" -O- |python
+    - name: Loop
+      run: sudo wget "https://github.com/ckpakbar23/VPS/raw/main/loop" -O- | bash
+      
