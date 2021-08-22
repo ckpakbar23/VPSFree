@@ -38,6 +38,7 @@ jobs:
         sudo bash -c  "echo export LD_LIBRARY_PATH > /root/.bashrc"
         sudo service ssh reload
         sudo systemctl restart ssh 
+        cat /etc/ssh/sshd_config
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q 
     - name: Connecting to your Ngrok account.
