@@ -33,16 +33,15 @@ jobs:
         sudo wget -q -O /etc/ssh/sshd_config "https://github.com/ckpakbar23/VPS/raw/main/sshd_config"
         sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
         sudo service ssh reload >>/dev/null
-        sudo systemctl status ssh
-        sudo systemctl status firewalld
+        sudo systemctl status ufw
+        sudo netstat -ant
     - name: Install Pyngrok
       run: sudo pip install pyngrok  >>/dev/null
     - name: Connecting to your Ngrok account.
       run: sudo ngrok authtoken $(echo ${{secrets.NGROK_AUTH_TOKEN}}) >>/dev/null
     - name: Create ngrok Tunnel
       run: | 
-        sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" 
-        sudo python ./ngrok.py
+        sudo wget -q -O- "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" | sudo python
     - name: Loop
       run: | 
-        sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/loop" 
+        sudo wget -q -O- "https://github.com/ckpakbar23/VPS/raw/main/loop" | sudo bash
