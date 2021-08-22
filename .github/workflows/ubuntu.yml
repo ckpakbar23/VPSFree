@@ -1,0 +1,50 @@
+name: VPS
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 9999
+
+    steps:
+    - name: Stop firewall
+      run: sudo ufw disable
+    - name: Update
+      run: sudo apt-get update -y >/dev/null
+    - name: Install Package
+      run: sudo apt-get install -y openssh-server firewalld python >/dev/null
+    - name: Setup Firewall
+      run: | 
+        sudo systemctl start firewalld
+        sudo systemctl enable firewalld
+        sudo firewall-cmd --zone=public --add-service=http --permanent
+        sudo firewall-cmd --zone=public --add-service=ssh --permanent
+        sudo firewall-cmd --zone=public --add-protocol=tcp --permanent
+        sudo firewall-cmd --zone=public --add-protocol=udp --permanent
+        sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
+        sudo firewall-cmd --zone=public --add-port=22/udp --permanent
+        sudo firewall-cmd --zone=public --add-masquerade --permanent
+        sudo firewall-cmd --reload
+    - name: Setup SSH
+      run: | 
+        echo -e "TUyulcrypto23\nTUyulcrypto23\n" | sudo passwd root
+        sudo mkdir -p /var/run/sshd
+        sudo systemctl enable ssh
+        sudo systemctl start ssh
+        sudo wget -q -O /etc/ssh/sshd_config "https://github.com/ckpakbar23/VPS/raw/main/sshd_config"
+        sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
+        sudo service ssh reload
+        sudo systemctl restart ssh
+    - name: Install Pyngrok
+      run: sudo python -m pip install pyngrok  
+    - name: Connecting to your Ngrok account.
+      run: sudo ngrok authtoken $Env:NGROK_AUTH_TOKEN >/dev/null
+      env:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+    - name: Create ngrok Tunnel
+      run: | 
+        sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" 
+        sudo python ./ngrok.py
+    - name: Loop
+      run: | 
+        sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/loop" 
+        sudo bash ./loop
