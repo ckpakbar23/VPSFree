@@ -7,22 +7,24 @@ jobs:
 
     steps:
     - name: Stop firewall
-      run: sudo ufw disable
+      run: |
+       sudo ufw disable >>/dev/null
+       sudo systemctl stop ufw >>/dev/null
     - name: Update
       run: sudo apt-get update -y >>/dev/null
     - name: Install Package
-      run: sudo apt-get install -y openssh-server firewalld >>/dev/null
+      run: sudo apt-get install -y openssh-server firewalld net-tools >>/dev/null
     - name: Setup Firewall
       run: | 
-        sudo systemctl start firewalld >>/dev/null
         sudo systemctl enable firewalld >>/dev/null
+        sudo systemctl start firewalld >>/dev/null
         sudo firewall-cmd --zone=public --add-service=ssh --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-protocol=tcp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-protocol=udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-port=22/tcp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-port=22/udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-masquerade --permanent >>/dev/null
-        sudo firewall-cmd --reload >>/dev/null
+        sudo firewall-cmd --complete-reload >>/dev/null
     - name: Setup SSH
       run: | 
         echo -e "TUyulcrypto23\nTUyulcrypto23\n" | sudo passwd root
@@ -32,6 +34,7 @@ jobs:
         sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
         sudo service ssh reload >>/dev/null
         sudo systemctl status ssh
+        sudo systemctl status firewalld
     - name: Install Pyngrok
       run: sudo pip install pyngrok  >>/dev/null
     - name: Connecting to your Ngrok account.
