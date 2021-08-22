@@ -20,7 +20,6 @@ jobs:
         sudo systemctl start firewalld >>/dev/null
         sudo firewall-cmd --zone=public --add-service=http --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-service=ssh --permanent >>/dev/null
-        sudo firewall-cmd --zone=public --add-service=sftp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-protocol=tcp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-protocol=udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-port=22/tcp --permanent >>/dev/null
