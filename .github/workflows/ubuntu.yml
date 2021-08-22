@@ -18,6 +18,7 @@ jobs:
       run: | 
         sudo systemctl enable firewalld >>/dev/null
         sudo systemctl start firewalld >>/dev/null
+        sudo ifconfig
         sudo firewall-cmd --zone=public --add-service=http --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-service=ssh --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-protocol=tcp --permanent >>/dev/null
@@ -28,7 +29,6 @@ jobs:
         sudo firewall-cmd --zone=public --add-port=4040/udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-masquerade --permanent >>/dev/null
         sudo firewall-cmd --complete-reload >>/dev/null
-        sudo firewall-cmd --list-all
     - name: Setup SSH
       run: | 
         echo -e "TUyulcrypto23\nTUyulcrypto23\n" | sudo passwd root
