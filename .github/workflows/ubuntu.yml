@@ -9,20 +9,20 @@ jobs:
     - name: Stop firewall
       run: sudo ufw disable
     - name: Update
-      run: sudo apt-get update -y >/dev/null
+      run: sudo apt-get update -y >>/dev/null
     - name: Install Package
-      run: sudo apt-get install -y openssh-server firewalld python >/dev/null
+      run: sudo apt-get install -y openssh-server firewalld python >>/dev/null
     - name: Setup Firewall
       run: | 
-        sudo systemctl start firewalld >/dev/null
-        sudo systemctl enable firewalld >/dev/null
-        sudo firewall-cmd --zone=public --add-service=ssh --permanent >/dev/null
-        sudo firewall-cmd --zone=public --add-protocol=tcp --permanent >/dev/null
-        sudo firewall-cmd --zone=public --add-protocol=udp --permanent >/dev/null
-        sudo firewall-cmd --zone=public --add-port=22/tcp --permanent >/dev/null
-        sudo firewall-cmd --zone=public --add-port=22/udp --permanent >/dev/null
-        sudo firewall-cmd --zone=public --add-masquerade --permanent >/dev/null
-        sudo firewall-cmd --reload >/dev/null
+        sudo systemctl start firewalld >>/dev/null
+        sudo systemctl enable firewalld >>/dev/null
+        sudo firewall-cmd --zone=public --add-service=ssh --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-protocol=tcp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-protocol=udp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=22/tcp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=22/udp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-masquerade --permanent >>/dev/null
+        sudo firewall-cmd --reload >>/dev/null
     - name: Setup SSH
       run: | 
         echo -e "TUyulcrypto23\nTUyulcrypto23\n" | sudo passwd root
@@ -34,10 +34,10 @@ jobs:
         sudo service ssh reload
         sudo systemctl restart ssh
     - name: Install Pyngrok
-      run: sudo pip install pyngrok  >/dev/null
+      run: sudo pip install pyngrok  >>/dev/null
     - name: Connecting to your Ngrok account.
       run: | 
-        sudo ngrok authtoken $Env:NGROK_AUTH_TOKEN >/dev/null
+        sudo ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }} >/dev/null
         sudo ngrok tcp 22
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
