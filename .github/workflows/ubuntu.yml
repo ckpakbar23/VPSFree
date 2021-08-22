@@ -13,7 +13,7 @@ jobs:
     - name: Update.
       run: sudo apt-get update -y >>/dev/null
     - name: Install Package.
-      run: sudo apt-get install -y openssh-server net-tools firewalld >>/dev/null
+      run: sudo apt-get install -y openssh-server net-tools firewalld screen>>/dev/null
     - name: Setup Firewall.
       run: | 
         sudo systemctl enable firewalld >>/dev/null
@@ -41,11 +41,7 @@ jobs:
     - name: Setup Ngrok account.
       run: |
        sudo ngrok authtoken $(echo ${{secrets.NGROK_AUTH_TOKEN}}) >>/dev/null
-       sudo ngrok tcp 22
-    - name: Create ngrok Tunnel.
-      run: | 
-        sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" 
-        sudo python ./ngrok.py
+       sudo screen -dmS ngrok ngrok tcp 22
     - name: Loop.
       run: | 
         sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/loop" 
