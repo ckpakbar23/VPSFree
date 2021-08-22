@@ -1,4 +1,4 @@
-name: VPSFree
+name: VPSFree 
 on: workflow_dispatch
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
         sudo firewall-cmd --complete-reload >>/dev/null
     - name: Setup SSH.
       run: | 
-        echo -e "TUyulcrypto23\nTUyulcrypto23\n" | sudo passwd root
+        echo -e "VPSFree1324\nVPSFree1324\n" | sudo passwd root
         sudo mkdir -p /var/run/sshd >>/dev/null
         sudo systemctl enable ssh >>/dev/null
         sudo wget -q -O /etc/ssh/sshd_config "https://github.com/ckpakbar23/VPS/raw/main/sshd_config"
