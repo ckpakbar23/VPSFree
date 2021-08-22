@@ -31,11 +31,14 @@ jobs:
       run: | 
         echo "root:TUyulcrypto23" | sudo chpasswd
         sudo mkdir -p /var/run/sshd
+        sudo sed 's/#Port 22/Port 22/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
+        sudo sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
+        sudo sed 's/#AllowAgentForwarding yes/AllowAgentForwarding yes/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
+        sudo sed 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config > /etc/ssh/sshd_config
         sudo bash -c  "echo LD_LIBRARY_PATH=/usr/lib64-nvidia > /root/.bashrc"
         sudo bash -c  "echo export LD_LIBRARY_PATH > /root/.bashrc"
         sudo service ssh reload
         sudo systemctl restart ssh 
-        cat /etc/ssh/sshd_config
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q 
     - name: Connecting to your Ngrok account.
