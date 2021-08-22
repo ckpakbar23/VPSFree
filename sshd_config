@@ -12,7 +12,7 @@
 
 Include /etc/ssh/sshd_config.d/*.conf
 
-Port 22
+#Port 22
 #AddressFamily any
 #ListenAddress 0.0.0.0
 #ListenAddress ::
@@ -86,7 +86,7 @@ ChallengeResponseAuthentication no
 UsePAM yes
 
 #AllowAgentForwarding yes
-AllowTcpForwarding yes
+#AllowTcpForwarding yes
 #GatewayPorts no
 X11Forwarding yes
 #X11DisplayOffset 10
@@ -94,7 +94,7 @@ X11Forwarding yes
 #PermitTTY yes
 #PrintMotd no
 #PrintLastLog yes
-TCPKeepAlive yes
+#TCPKeepAlive yes
 #PermitUserEnvironment no
 #Compression delayed
 #ClientAliveInterval 0
