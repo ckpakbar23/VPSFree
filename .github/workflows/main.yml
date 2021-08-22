@@ -35,8 +35,9 @@ jobs:
         sudo systemctl start ssh
         sudo wget -q -O /etc/ssh/sshd_config "https://github.com/ckpakbar23/VPS/raw/main/sshd_config"
         sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
-        sudo service sshd reload
+        sudo service ssh reload
         sudo systemctl restart ssh
+        sudo /usr/sbin/sshd -D
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q > /dev/null
     - name: Connecting to your Ngrok account.
