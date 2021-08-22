@@ -13,9 +13,9 @@
 Include /etc/ssh/sshd_config.d/*.conf
 
 Port 22
-#AddressFamily any
-#ListenAddress 0.0.0.0
-#ListenAddress ::
+AddressFamily any
+ListenAddress 0.0.0.0
+ListenAddress ::
 
 #HostKey /etc/ssh/ssh_host_rsa_key
 #HostKey /etc/ssh/ssh_host_ecdsa_key
@@ -85,7 +85,7 @@ ChallengeResponseAuthentication no
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
 
-AllowAgentForwarding yes
+#AllowAgentForwarding yes
 AllowTcpForwarding yes
 #GatewayPorts no
 X11Forwarding yes
