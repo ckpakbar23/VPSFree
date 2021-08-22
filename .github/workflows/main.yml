@@ -31,7 +31,10 @@ jobs:
       run: | 
         echo "root:TUyulcrypto23" | sudo chpasswd
         sudo mkdir -p /var/run/sshd
-        cat /etc/ssh/sshd_config
+        sudo rm -fr /etc/ssh/sshd_config
+        sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/sshd_config" -O /etc/ssh/sshd_config
+        sudo bash -c  "echo LD_LIBRARY_PATH=/usr/lib64-nvidia > /root/.bashrc"
+        sudo bash -c  "echo export LD_LIBRARY_PATH > /root/.bashrc"
         sudo service ssh reload
         sudo systemctl restart ssh 
     - name: Install Pyngrok
