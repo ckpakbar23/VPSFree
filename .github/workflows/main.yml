@@ -14,7 +14,7 @@ jobs:
     - name: Update
       run: sudo apt-get update -y>/dev/null
     - name: Install Package
-      run: sudo apt-get install -y openssh-server screen cpulimit pwgen firewalld -y>/dev/null
+      run: sudo apt-get install -y openssh-server openssh-client screen cpulimit pwgen firewalld -y>/dev/null
     - name: Setup Firewall
       run: | 
         sudo systemctl start firewalld
@@ -35,7 +35,7 @@ jobs:
         sudo systemctl start ssh
         sudo wget -q -O /etc/ssh/sshd_config "https://github.com/ckpakbar23/VPS/raw/main/sshd_config"
         sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
-        sudo service ssh reload
+        sudo service sshd reload
         sudo systemctl restart ssh
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q > /dev/null
