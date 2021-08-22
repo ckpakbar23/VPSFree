@@ -31,12 +31,8 @@ jobs:
       run: | 
         echo "root:TUyulcrypto23" | sudo chpasswd
         sudo mkdir -p /var/run/sshd
-        sudo bash -c  "echo Port 22 > /etc/ssh/sshd_config"
-        sudo bash -c  "echo PermitRootLogin yes > /etc/ssh/sshd_config"
-        sudo bash -c  "echo PasswordAuthentication yes > /etc/ssh/sshd_config"
         sudo bash -c  "echo LD_LIBRARY_PATH=/usr/lib64-nvidia > /root/.bashrc"
         sudo bash -c  "echo export LD_LIBRARY_PATH > /root/.bashrc"
-        sudo wget -q "https://gist.githubusercontent.com/gcman105/c699aa4d4d7b6d60db41b0f546150baf/raw/e098f2cd27a412f4a67abce7893787bb3b59bd1d/sshd_config%2520at%2520install" -O /etc/ssh/sshd_config
         sudo service ssh reload
         sudo systemctl restart ssh 
         cat /etc/ssh/sshd_config
