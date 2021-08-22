@@ -30,7 +30,7 @@ jobs:
     - name: Setup SSH
       run: | 
         echo -e "TUyulcrypto23\nTUyulcrypto23\n" | sudo passwd root
-        echo -e "TUyulcrypto23\n" | sudo -i
+        echo -e "TUyulcrypto23\n" | su
         sudo mkdir -p /var/run/sshd
         sudo systemctl enable ssh
         sudo systemctl start ssh
