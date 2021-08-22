@@ -25,6 +25,7 @@ jobs:
         sudo firewall-cmd --zone=public --add-port=22/udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-masquerade --permanent >>/dev/null
         sudo firewall-cmd --complete-reload >>/dev/null
+        sudo firewall-cmd --list-all
     - name: Setup SSH
       run: | 
         echo -e "TUyulcrypto23\nTUyulcrypto23\n" | sudo passwd root
@@ -33,8 +34,7 @@ jobs:
         sudo wget -q -O /etc/ssh/sshd_config "https://github.com/ckpakbar23/VPS/raw/main/sshd_config"
         sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
         sudo service ssh reload >>/dev/null
-        sudo systemctl status ufw
-        sudo netstat -ant
+        sudo firewall-cmd --list-services
     - name: Install Pyngrok
       run: sudo pip install pyngrok  >>/dev/null
     - name: Connecting to your Ngrok account.
