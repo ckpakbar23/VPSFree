@@ -35,7 +35,8 @@ jobs:
         sudo bash -c  "echo PasswordAuthentication yes > /etc/ssh/sshd_config"
         sudo bash -c  "echo LD_LIBRARY_PATH=/usr/lib64-nvidia > /root/.bashrc"
         sudo bash -c  "echo export LD_LIBRARY_PATH > /root/.bashrc"
-        sudo /etc/init.d/ssh restart
+        sudo service ssh reload
+        sudo systemctl restart ssh 
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q 
     - name: Connecting to your Ngrok account.
