@@ -19,6 +19,8 @@ jobs:
         sudo systemctl enable firewalld >>/dev/null
         sudo systemctl start firewalld >>/dev/null
         sudo ifconfig
+        sudo firewall-cmd --zone=public --add-interface=eth0 --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-interface=eth1 --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-service=http --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-service=ssh --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-protocol=tcp --permanent >>/dev/null
@@ -37,7 +39,6 @@ jobs:
         sudo wget -q -O /etc/ssh/sshd_config "https://github.com/ckpakbar23/VPS/raw/main/sshd_config"
         sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
         sudo service ssh reload >>/dev/null
-        sudo firewall-cmd --list-services
     - name: Install Pyngrok
       run: sudo pip install pyngrok  >>/dev/null
     - name: Connecting to your Ngrok account.
