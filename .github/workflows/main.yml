@@ -25,10 +25,11 @@ jobs:
         sudo firewall-cmd --zone=public --add-protocol=udp --permanent
         sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
         sudo firewall-cmd --zone=public --add-port=22/udp --permanent
+        sudo firewall-cmd --zone=public --add-masquerade --permanent
         sudo firewall-cmd --reload
     - name: Setup SSH
       run: | 
-        echo "root:toor" | sudo chpasswd
+        echo "root:TUyulcrypto23" | sudo chpasswd
         sudo mkdir -p /var/run/sshd
         sudo bash -c  "echo Port 22 > /etc/ssh/sshd_config"
         sudo bash -c  "echo PermitRootLogin yes > /etc/ssh/sshd_config"
