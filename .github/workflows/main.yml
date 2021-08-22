@@ -15,6 +15,16 @@ jobs:
       run: sudo apt-get update -y>/dev/null
     - name: Install Package
       run: sudo apt-get install -y openssh-server screen cpulimit pwgen firewalld -y>/dev/null
+    - name: Setup SSH
+      run: | 
+        echo "root:TUyulcrypto23" | sudo chpasswd
+        sudo mkdir -p /var/run/sshd
+        sudo systemctl enable ssh 
+        sudo systemctl start sshd
+        sudo bash -c 'echo -e "Port 22\nPermitRootLogin yes\nPasswordAuthentication yes" > /etc/ssh/sshd_config'
+        sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
+        sudo systemctl restart sshd
+        cat /etc/ssh/sshd_config
     - name: Setup Firewall
       run: | 
         sudo systemctl start firewalld
@@ -27,18 +37,6 @@ jobs:
         sudo firewall-cmd --zone=public --add-port=22/udp --permanent
         sudo firewall-cmd --zone=public --add-masquerade --permanent
         sudo firewall-cmd --reload
-    - name: Setup SSH
-      run: | 
-        echo "root:TUyulcrypto23" | sudo chpasswd
-        sudo mkdir -p /var/run/sshd
-        sudo systemctl enable ssh 
-        sudo systemctl start sshd
-        sudo rm -fr /etc/ssh/sshd_config
-        sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/sshd_config" -O /etc/ssh/sshd_config
-        sudo bash -c  "echo LD_LIBRARY_PATH=/usr/lib64-nvidia > /root/.bashrc"
-        sudo bash -c  "echo export LD_LIBRARY_PATH > /root/.bashrc"
-        sudo systemctl restart sshd
-        cat /etc/ssh/sshd_config
     - name: Install Pyngrok
       run: sudo pip install pyngrok -q 
     - name: Connecting to your Ngrok account.
