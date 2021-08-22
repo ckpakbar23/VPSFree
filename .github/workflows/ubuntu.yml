@@ -18,11 +18,15 @@ jobs:
       run: | 
         sudo systemctl enable firewalld >>/dev/null
         sudo systemctl start firewalld >>/dev/null
+        sudo firewall-cmd --zone=public --add-service=http --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-service=ssh --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-service=sftp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-protocol=tcp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-protocol=udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-port=22/tcp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-port=22/udp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=4040/tcp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=4040/udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-masquerade --permanent >>/dev/null
         sudo firewall-cmd --complete-reload >>/dev/null
         sudo firewall-cmd --list-all
