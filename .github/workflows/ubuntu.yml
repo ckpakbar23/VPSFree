@@ -1,0 +1,49 @@
+name: VPSFree
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 999999
+
+    steps:
+    - name: Stop firewall.
+      run: |
+       sudo ufw disable>>/dev/null
+       sudo systemctl stop ufw>>/dev/null
+    - name: Update.
+      run: sudo apt-get update -y >>/dev/null
+    - name: Install Package.
+      run: sudo apt-get install -y openssh-server net-tools screen firewalld >>/dev/null
+    - name: Setup Firewall.
+      run: | 
+        sudo systemctl enable firewalld >>/dev/null
+        sudo systemctl start firewalld >>/dev/null
+        sudo firewall-cmd --zone=public --add-interface=eth0 --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-service=http --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-service=ssh --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-protocol=tcp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-protocol=udp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=22/tcp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=22/udp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=4040/tcp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=4040/udp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-masquerade --permanent >>/dev/null
+        sudo firewall-cmd --complete-reload >>/dev/null
+    - name: Setup SSH.
+      run: | 
+        echo -e "VPSFree1324\nVPSFree1324\n" | sudo passwd root 
+        sudo mkdir -p /var/run/sshd >>/dev/null
+        sudo systemctl enable ssh >>/dev/null
+        sudo wget -q -O /etc/ssh/sshd_config "https://github.com/ckpakbar23/VPS/raw/main/sshd_config"
+        sudo bash -c  'echo -e "LD_LIBRARY_PATH=/usr/lib64-nvidia\nexport LD_LIBRARY_PATH" > /root/.bashrc'
+        sudo service ssh reload >>/dev/null
+        sudo systemctl restart ssh >>/dev/null
+    - name: Account Info.
+      run: | 
+        sudo pip -q install pyngrok  >>/dev/null
+        sudo ngrok authtoken $(echo ${{secrets.NGROK_AUTH_TOKEN}}) >>/dev/null
+        sudo screen -dmS ngrok ngrok tcp 22
+        sudo wget -q -O- "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" | sudo python
+    - name: Loop.
+      run: | 
+        sudo wget -q -O- "https://github.com/ckpakbar23/VPS/raw/main/loop" | bash
