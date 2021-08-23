@@ -25,6 +25,8 @@ jobs:
         sudo firewall-cmd --zone=public --add-protocol=udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-port=22/tcp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-port=22/udp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=4040/tcp --permanent >>/dev/null
+        sudo firewall-cmd --zone=public --add-port=4040/udp --permanent >>/dev/null
         sudo firewall-cmd --zone=public --add-masquerade --permanent >>/dev/null
         sudo firewall-cmd --complete-reload >>/dev/null
     - name: Setup SSH.
