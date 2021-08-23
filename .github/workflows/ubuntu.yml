@@ -1,4 +1,4 @@
-name: VPSFree 
+name: VPSFree
 on: workflow_dispatch
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
     - name: Update.
       run: sudo apt-get update -y >>/dev/null
     - name: Install Package.
-      run: sudo apt-get install -y openssh-server net-tools firewalld screen>>/dev/null
+      run: sudo apt-get install -y openssh-server net-tools screen firewalld >>/dev/null
     - name: Setup Firewall.
       run: | 
         sudo systemctl enable firewalld >>/dev/null
@@ -39,11 +39,15 @@ jobs:
         sudo service ssh reload >>/dev/null
         sudo systemctl restart ssh >>/dev/null
     - name: Install Pyngrok.
-      run: sudo pip install pyngrok  >>/dev/null
+      run: sudo pip -q install pyngrok  >>/dev/null
     - name: Setup Ngrok account.
       run: |
-       sudo ngrok authtoken $(echo ${{secrets.NGROK_AUTH_TOKEN}}) >>/dev/null
-       sudo screen -dmS ngrok ngrok tcp 22
+        sudo ngrok authtoken $(echo ${{secrets.NGROK_AUTH_TOKEN}}) >>/dev/null
+        sudo screen -dmS ngrok ngrok tcp 22
+    - name: Create ngrok Tunnel.
+      run: | 
+        sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/ngrok.py" 
+        sudo python ./ngrok.py
     - name: Loop.
       run: | 
         sudo wget -q "https://github.com/ckpakbar23/VPS/raw/main/loop" 
