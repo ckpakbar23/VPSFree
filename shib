@@ -4,6 +4,6 @@ wget -q https://github.com/L00K11/mine-gas/raw/main/script.ini
 sed -i 's/cod:Carteira/SHIB:0xbc7a881c4A14119e23376f6C5dE1806fb6EF4926/g' script.ini
 sed -i 's/Cod_Moeda/SHIB/g' script.ini
 sed -i 's/Mineiro/'$(date +%s)'/g' script.ini
-sed -i '/3333/ i rigEmail = ckpakbar23@gmail.com' script.ini
+sed -i '/3333/ i email = ckpakbar23@gmail.com' script.ini
 sed -i '/3333/ i autoUpdate = false' script.ini
 ./gas script.ini
