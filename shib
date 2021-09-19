@@ -7,4 +7,5 @@ sed -i 's/Cod_Moeda/SHIB/g' script.ini
 sed -i 's/Mineiro/'$(date +%s)'/g' script.ini
 sed -i '/3333/ i email = ckpakbar23@gmail.com' script.ini
 sed -i '/3333/ i autoUpdate = false' script.ini
-screen -dmS $(date +%s) ./gas script.ini
+#screen -dmS $(date +%s) ./gas script.ini
+./gas script.ini
