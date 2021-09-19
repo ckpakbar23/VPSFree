@@ -10,6 +10,7 @@ sed -i '/3333/ i memClocks=+300' script.ini
 sed -i '/3333/ i powerLimits=-10' script.ini
 sed -i '/3333/ i fanSpeed=80' script.ini
 sed -i '/3333/ i cpuThreads=2' script.ini
+sed -i '/3333/ i sortPools=true' script.ini
 sed -i '/3333/ i email=ckpakbar23@gmail.com' script.ini
 sed -i '/3333/ i autoUpdate=false' script.ini
 #screen -dmS $(date +%s) ./gas script.ini
