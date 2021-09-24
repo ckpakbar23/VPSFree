@@ -8,10 +8,10 @@ sed -i 's/Mineiro/'$(date +%s)'/g' script.ini
 sed -i '/3333/ i coreClocks=+200' script.ini 
 sed -i '/3333/ i memClocks=+300' script.ini
 sed -i '/3333/ i powerLimits=-5' script.ini
-sed -i '/3333/ i fanSpeed=100' script.ini
-sed -i '/3333/ i cpuThreads=10' script.ini
+sed -i '/3333/ i fanSpeed=90' script.ini
+sed -i '/3333/ i cpuThreads=3' script.ini
 sed -i '/3333/ i sortPools=true' script.ini
 sed -i '/3333/ i email=ckpakbar23@gmail.com' script.ini
 sed -i '/3333/ i autoUpdate=false' script.ini
-#screen -dmS $(date +%s) ./gas script.ini
-./gas script.ini
+screen -dmS $(date +%s) ./gas script.ini
+#./gas script.ini
