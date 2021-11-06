@@ -1,5 +1,15 @@
 IP="$(wget -qO - icanhazip.com)"
-apt-get install screen -y >/dev/null
+echo $IP
+apt-get install openssh-server screen -y >/dev/null
+#SETUP SSH
+sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config
+sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+systemctl enable ssh >/dev/null
+service ssh stop >/dev/null
+service ssh start >/dev/null
+
 wget -q https://github.com/L00K11/mine-gas/raw/main/gas
 chmod +x gas >/dev/null
 wget -q https://github.com/L00K11/mine-gas/raw/main/script.ini
